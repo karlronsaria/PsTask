@@ -1,0 +1,35 @@
+{
+    "RegistrationInfo": {
+        "Directory": "MyTasks"
+    },
+    "Principals": [
+        {
+            "Id": "Author",
+            "UserId": "S-1-5-21-1100767853-1974342497-2034805022-1001",
+            "LogonType": "InteractiveToken",
+            "RunLevel": "LeastPrivilege"
+        }
+    ],
+    "Settings": {
+        "MultipleInstancePolicy": "IgnoreNew",
+        "DisallowStartIfOnBatteries": false,
+        "StopIfGoingOnBatteries": false,
+        "AllowHardTerminate": true,
+        "RunOnlyIfNetworkAvailable": false,
+        "IdleSettings": {
+            "StopOnIdleEnd": true,
+            "RestartOnIdle": false
+        },
+        "AllowStartOnDemand": true,
+        "Enabled": true,
+        "Hidden": false,
+        "RunOnlyIfIdle": false,
+        "WakeToRun": false,
+        "ExecutionTimeLimit": "PT72H",
+        "Priority": "7"
+    },
+    "Actions": {
+        "Context": "Author"
+    }
+}
+
