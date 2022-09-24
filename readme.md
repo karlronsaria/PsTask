@@ -1,6 +1,7 @@
 ### todo
-- [ ] refactor: rename command (MinuteTimer.exe)
-- [ ] new: git repo
+- [x] refactor: rename command (MinuteTimer.exe)
+  - name: OverlayTimer.exe
+- [x] new: git repo
 - feat(New_WorkSchedule):
   - [x] prompt for each day of the new week, starting from the current day
   - [x] accept above as optional parameters
