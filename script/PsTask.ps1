@@ -103,7 +103,7 @@ function Get-WeekDayScheduledTask {
     }
 
     $now = Get-Date -Format o
-    $defaults = cat "$PsScriptRoot\res\default.json" | ConvertFrom-Json
+    $defaults = cat "$PsScriptRoot\..\res\default.json" | ConvertFrom-Json
     $directory = $defaults.RegistrationInfo.Directory
     $author = "$($env:UserDomain)\$($env:UserName)"
     $myArgs = $Arguments -Join ' '
@@ -136,7 +136,7 @@ function Get-WeekDayScheduledTask {
 
         'ReadSchedule' {
             Read-WeekSchedule `
-                -Date [DateTime]::ParseExact($StartDate, 'yyyy_MM_dd', $null)
+                -Date ([DateTime]::ParseExact($StartDate, 'yyyy_MM_dd', $null))
         }
 
         'ReadScheduleStartingToday' {
@@ -169,7 +169,7 @@ function Get-WeekDayScheduledTask {
     }
 
     $triggers = $triggers -Join "`r`n"
-    $xml = cat "$PsScriptRoot\res\Template_SingleDayTask.xml"
+    $xml = cat "$PsScriptRoot\..\res\Template_SingleDayTask.xml"
     $xml = $xml.Replace('{NOW}', $now)
     $xml = $xml.Replace('{AUTHOR}', $author)
     $xml = $xml.Replace('{DESCRIPTION}', $Description)

@@ -20,7 +20,7 @@ function Register-WorkWeekShutdownScheduledTask {
         $NoRegister
     )
 
-    . $PsScriptRoot\script\PsTask.ps1
+    . $PsScriptRoot\..\script\PsTask.ps1
 
     $params = @{
         TaskName = 'TimedShutdown_WorkWeek'
@@ -48,7 +48,7 @@ function Register-WorkWeekShutdownScheduledTask {
         $xml | Out-File $filePath
     }
 
-    $defaults = cat "$PsScriptRoot\res\default.json" | ConvertFrom-Json
+    $defaults = cat "$PsScriptRoot\..\res\default.json" | ConvertFrom-Json
     $directory = $defaults.RegistrationInfo.Directory
     $register = ''
 
@@ -63,7 +63,8 @@ function Register-WorkWeekShutdownScheduledTask {
     else {
         if ($Force) {
             Unregister-ScheduledTask `
-                -TaskName $params.TaskName
+                -TaskName $params.TaskName `
+                -Confirm:$false
 
             $register = Register-ScheduledTask `
                 -TaskName $params.TaskName `
