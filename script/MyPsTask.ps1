@@ -69,6 +69,7 @@ function Register-WorkWeekShutdownScheduledTask {
                 -TaskName $params.TaskName `
                 -TaskPath $directory `
                 -Xml ($xml | Out-String)
+        }
     }
 
     return [PsCustomObject]@{
