@@ -80,3 +80,7 @@ function Register-WorkWeekShutdownScheduledTask {
     }
 }
 
+function Edit-WorkDayShutdownScheduledTask {
+# TODO
+}
+

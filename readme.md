@@ -1,4 +1,6 @@
 ### todo
+- [ ] feat: Edit-WorkDay
+- [ ] feat: Get-WorkWeek
 - [x] refactor: rename command (MinuteTimer.exe)
   - name: OverlayTimer.exe
 - [x] new: git repo
