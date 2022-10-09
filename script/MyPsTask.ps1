@@ -11,6 +11,12 @@ function Register-WorkWeekShutdownScheduledTask {
         [Switch]
         $SaveToFile,
 
+        [Int]
+        $TimerMinutes = 0,
+
+        [Int]
+        $DriveTimeMinutes = 0,
+
         [Parameter(ParameterSetName = 'Register')]
         [Switch]
         $Force,
@@ -23,10 +29,12 @@ function Register-WorkWeekShutdownScheduledTask {
     . $PsScriptRoot\..\script\PsTask.ps1
 
     $params = @{
+        StartDate = $StartDate
         TaskName = 'TimedShutdown_WorkWeek'
         Description = 'Displays an overlay timer and shuts down the computer at a certain time.'
         Command = 'OverlayTimer.exe'
-        Arguments = (15 * 60), 'shutdown', '"-f -s -t 0"'
+        Arguments = ($TimerMinutes * 60), 'shutdown', '"-f -s -t 0"'
+        MinuteHeadStart = $TimerMinutes + $DriveTimeMinutes
     }
 
     if (-not (Get-Command $params.Command -ErrorAction SilentlyContinue)) {
@@ -65,12 +73,12 @@ function Register-WorkWeekShutdownScheduledTask {
             Unregister-ScheduledTask `
                 -TaskName $params.TaskName `
                 -Confirm:$false
-
-            $register = Register-ScheduledTask `
-                -TaskName $params.TaskName `
-                -TaskPath $directory `
-                -Xml ($xml | Out-String)
         }
+
+        $register = Register-ScheduledTask `
+            -TaskName $params.TaskName `
+            -TaskPath $directory `
+            -Xml ($xml | Out-String)
     }
 
     return [PsCustomObject]@{
