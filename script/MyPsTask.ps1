@@ -1,3 +1,5 @@
+#Requires -RunAsAdministrator
+
 <#
     .TAGS
     @task @scheduler
