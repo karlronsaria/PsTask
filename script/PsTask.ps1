@@ -111,6 +111,7 @@ function Get-WeekDayScheduledTask {
     $directory = $defaults.RegistrationInfo.Directory
     $author = "$($env:UserDomain)\$($env:UserName)"
     $myArgs = $Arguments -Join ' '
+    $expiryDays = 14
 
     # TODO: remove
     $calendarTrigger =
@@ -187,5 +188,6 @@ function Get-WeekDayScheduledTask {
     $xml = $xml.Replace('{TRIGGERS}', $Triggers)
     $xml = $xml.Replace('{COMMAND}', $Command)
     $xml = $xml.Replace('{ARGUMENTS}', $Arguments)
+    $xml = $xml.Replace('{EXPIRY_DAYS}', $expiryDays)
     return $xml
 }
