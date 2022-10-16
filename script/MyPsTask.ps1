@@ -31,7 +31,8 @@ function Register-WorkWeekShutdownScheduledTask {
     . $PsScriptRoot\..\script\PsTask.ps1
 
     $params = @{
-        StartDate = $StartDate
+        # StartDate = $StartDate
+        StartBoundary = Read-WeekSchedule -DateString $StartDate
         TaskName = 'TimedShutdown_WorkWeek'
         Description = 'Displays an overlay timer and shuts down the computer at a certain time.'
         Command = 'OverlayTimer.exe'
@@ -46,9 +47,9 @@ function Register-WorkWeekShutdownScheduledTask {
         }
     }
 
-    if ($StartDate) {
-        $params['StartDate'] = $StartDate
-    }
+    # if ($StartDate) {
+    #     $params['StartDate'] = $StartDate
+    # }
 
     $xml = Get-WeekDayScheduledTask @params
     $filePath = ''
@@ -66,6 +67,7 @@ function Register-WorkWeekShutdownScheduledTask {
         if (-not $SaveToFile) {
             return [PsCustomObject]@{
                 Success = $true
+                StartBoundary = $params.StartBoundary
                 Xml = $xml
             }
         }
@@ -87,6 +89,7 @@ function Register-WorkWeekShutdownScheduledTask {
         'Success' = $true
         'FilePath' = $filePath
         'Register-ScheduledTask' = $register
+        'StartBoundary' = $params.StartBoundary
     }
 }
 

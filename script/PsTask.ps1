@@ -50,51 +50,85 @@ function Read-TimeString {
 }
 
 function Read-WeekSchedule {
+    [CmdletBinding(DefaultParameterSetName = 'ByDateTimeObject')]
     Param(
+        [Parameter(ParameterSetName = 'ByDateTimeObject')]
         [DateTime]
-        $Date
+        $Date,
+
+        [Parameter(ParameterSetName = 'ByString')]
+        [String]
+        $DateString
     )
 
-    if (-not $Date) {
-        $Date = Get-NextDay -Date (Get-Date)
-    }
+    $what = switch ($PsCmdlet.ParameterSetName) {
+        'ByString' {
+            if ([String]::IsNullOrWhiteSpace($StartDate)) {
+                Read-WeekSchedule
+                break
+            }
 
-    $times = @()
+            $capture = [Regex]::Match($StartDate, "\d{4}(_\d{2}){2}")
 
-    foreach ($i in 0..6) {
-        $day = $Date.DayOfWeek
+            if (-not $capture.Success) {
+                Read-WeekSchedule
+                break
+            }
 
-        $result = Read-TimeString `
-            -Prompt "$($Date.DayOfWeek) (Enter to skip)"
+            $str = $capture.Value
 
-        if ($result.Success) {
-            $time = "$($Date.ToString('yyyy_MM_dd'))_$($result.Time)"
-            $times = $times + @($time)
+            Read-WeekSchedule `
+                -Date ([DateTime]::ParseExact( `
+                    $capture.Value, `
+                    'yyyy_MM_dd', `
+                    $null `
+                ))
         }
 
-        $Date = Get-NextDay -Date $Date
+        'ByDateTimeObject' {
+            if (-not $Date) {
+                $Date = Get-NextDay -Date (Get-Date)
+            }
+
+            $times = @()
+
+            foreach ($i in 0..6) {
+                $day = $Date.DayOfWeek
+
+                $result = Read-TimeString `
+                    -Prompt "$($Date.DayOfWeek) (Enter to skip)"
+
+                if ($result.Success) {
+                    $time = "$($Date.ToString('yyyy_MM_dd'))_$($result.Time)"
+                    $times = $times + @($time)
+                }
+
+                $Date = Get-NextDay -Date $Date
+            }
+
+            return $times
+        }
     }
 
-    return $times
+    return $what
 }
 
 function Get-WeekDayScheduledTask {
     [CmdletBinding(DefaultParameterSetName = 'ReadScheduleStartingToday')]
     Param(
-        [String]
-        $TaskName,
-
         [Parameter(ParameterSetName = 'ReadSchedule')]
         [String]
         $StartDate,
 
-        [Parameter(ParameterSetName = 'ReadSchedule')]
-        [Int]
-        $MinuteHeadStart = 0,
-
         [Parameter(ParameterSetName = 'NoRead')]
         [String[]]
         $StartBoundary,
+
+        [String]
+        $TaskName,
+
+        [Int]
+        $MinuteHeadStart = 0,
 
         [String]
         $Command,
@@ -140,14 +174,8 @@ function Get-WeekDayScheduledTask {
         }
 
         'ReadSchedule' {
-            if ([String]::IsNullOrWhiteSpace($StartDate)) {
-                $StartDate = Get-Date -f yyyy_MM_dd
-            }
-
-            $str = [Regex]::Match($StartDate, "\d{4}(_\d{2}){2}").Value
-
             Read-WeekSchedule `
-                -Date ([DateTime]::ParseExact($str, 'yyyy_MM_dd', $null))
+                -DateString $StartDate
         }
 
         'ReadScheduleStartingToday' {
