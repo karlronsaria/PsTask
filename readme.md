@@ -12,7 +12,9 @@
 - [x] refactor: use proper file structure
 
 ### issue
-- when: 2022_10_11_141916
-- process: \shortcut\bin\workschedule.bat
-- actual: registered task does not appear in Task Scheduler one day after registration
+- [x]
+  - when: 2022_10_11_141916
+  - process: \shortcut\bin\workschedule.bat
+  - actual: registered task does not appear in Task Scheduler one day after registration
+  - howto: change "days to remove" to 14
 
