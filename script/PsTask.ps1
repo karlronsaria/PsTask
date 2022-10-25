@@ -4,7 +4,13 @@ function Get-NextDay {
         $Date
     )
 
-    return Get-Date -Day ($Date.Day + 1)
+    $day = if (31 -eq $Date.Day) {
+        0
+    } else {
+        $Date.Day
+    }
+
+    return Get-Date -Day ($day + 1)
 }
 
 function Read-TimeString {
