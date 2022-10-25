@@ -94,6 +94,7 @@ function Register-WorkWeekShutdownScheduledTask {
         'FilePath' = $filePath
         'Register-ScheduledTask' = $register
         'Schedule' = $schedule
+        'Xml' = $xml
     }
 }
 

@@ -4,13 +4,20 @@ function Get-NextDay {
         $Date
     )
 
-    $day = if (31 -eq $Date.Day) {
-        0
-    } else {
-        $Date.Day
+    $day = $Date.Day
+    $month = $Date.Month
+
+    if (31 -eq $day) {
+        $day = 0
+
+        $month = if (12 -eq $month) {
+            1
+        } else {
+            $month + 1
+        }
     }
 
-    return Get-Date -Day ($day + 1)
+    return Get-Date -Month $month -Day ($day + 1)
 }
 
 function Read-TimeString {
