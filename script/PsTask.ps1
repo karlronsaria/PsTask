@@ -1,25 +1,3 @@
-function Get-NextDay {
-    Param(
-        [DateTime]
-        $Date
-    )
-
-    $day = $Date.Day
-    $month = $Date.Month
-
-    if (31 -eq $day) {
-        $day = 0
-
-        $month = if (12 -eq $month) {
-            1
-        } else {
-            $month + 1
-        }
-    }
-
-    return Get-Date -Month $month -Day ($day + 1)
-}
-
 function Read-TimeString {
     Param(
         [String]
@@ -100,7 +78,7 @@ function Read-WeekSchedule {
 
         'ByDateTimeObject' {
             if (-not $Date) {
-                $Date = Get-NextDay -Date (Get-Date)
+                $Date = (Get-Date).AddDays(1)
             }
 
             $times = @()
@@ -116,7 +94,7 @@ function Read-WeekSchedule {
                     $times = $times + @($time)
                 }
 
-                $Date = Get-NextDay -Date $Date
+                $Date = $Date.AddDays(1)
             }
 
             return $times
@@ -203,7 +181,7 @@ function Get-WeekDayScheduledTask {
                 [DateTime]::ParseExact($_, 'yyyy_MM_dd_HHmmss', $null) `
                     - (New-TimeSpan -Minutes $MinuteHeadStart)
 
-            $end = Get-NextDay -Date $start
+            $end = $start.AddDays(1)
             $trigger = $timeTrigger
 
             $trigger = $trigger.Replace( `
