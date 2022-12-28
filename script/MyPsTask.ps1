@@ -7,6 +7,12 @@
 function Register-WorkWeekShutdownScheduledTask {
     [CmdletBinding(DefaultParameterSetName = 'Register')]
     Param(
+        [ArgumentCompleter({
+            $date = Get-Date
+            0..62 | foreach {
+                Get-Date ($date.AddDays($_)) -Format 'yyyy_MM_dd'
+            }
+        })]
         [String]
         $StartDate,
 
