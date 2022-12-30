@@ -12,7 +12,7 @@
 - [x] refactor: use proper file structure
 
 # I wish
-- [ ] I had the option to add work end times for record-keeping
+- [ ] I would have the option to add work end times for record-keeping
   - [ ] Add optional ``-To`` parameter
     - if selected, overwrites any recorded instance of schedule end times
     - if not select, does not overwrite
