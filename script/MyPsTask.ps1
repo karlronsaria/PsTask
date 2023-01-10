@@ -9,7 +9,7 @@ function Register-WorkWeekShutdownScheduledTask {
     Param(
         [ArgumentCompleter({
             $date = Get-Date
-            0..62 | foreach {
+            (@(0 .. 62) + @(-61 .. -1)) | foreach {
                 Get-Date ($date.AddDays($_)) -Format 'yyyy_MM_dd'
             }
         })]
