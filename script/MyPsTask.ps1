@@ -36,11 +36,13 @@ function Register-WorkWeekShutdownScheduledTask {
 
     . $PsScriptRoot\..\script\PsTask.ps1
 
+    $defaults = cat "$PsScriptRoot\..\res\default.json" | ConvertFrom-Json
+
     $params = @{
         StartBoundary = Read-WeekSchedule -DateString $StartDate
         TaskName = 'TimedShutdown_WorkWeek'
         Description = 'Displays an overlay timer and shuts down the computer at a certain time.'
-        Command = 'OverlayTimer.exe'
+        Command = $defaults.Module.Command
         Arguments = ($TimerMinutes * 60), 'shutdown', '"-f -s -t 0"'
         MinuteHeadStart = $TimerMinutes + $DriveTimeMinutes
     }
@@ -60,7 +62,6 @@ function Register-WorkWeekShutdownScheduledTask {
         $xml | Out-File $filePath
     }
 
-    $defaults = cat "$PsScriptRoot\..\res\default.json" | ConvertFrom-Json
     $directory = $defaults.RegistrationInfo.Directory
     $register = ''
 
