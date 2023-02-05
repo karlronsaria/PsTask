@@ -1,6 +1,6 @@
 {
     "Module": {
-        "Command": "OverlayTimer.exe"
+        "Command": "OverlayTimer"
     },
     "RegistrationInfo": {
         "Directory": "MyTasks"

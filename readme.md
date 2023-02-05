@@ -1,3 +1,9 @@
+# credit
+- github.com/jdhitsolutionis for ``PSClock``
+- link
+  - url: https://github.com/jdhitsolutionis/PSClock
+  - retrieved: 2023_02_03
+
 # todo
 - [ ] feat: Edit-WorkDay
 - [ ] feat: Get-WorkWeek

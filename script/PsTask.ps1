@@ -135,7 +135,7 @@ function Get-WeekDayScheduledTask {
     $defaults = cat "$PsScriptRoot\..\res\default.json" | ConvertFrom-Json
     $directory = $defaults.RegistrationInfo.Directory
     $author = "$($env:UserDomain)\$($env:UserName)"
-    $myArgs = $Arguments -Join ' '
+    $myArgs = "`"$($Arguments -Join ' ')`""
     $expiryDays = 14
 
     # TODO: remove
@@ -206,7 +206,7 @@ function Get-WeekDayScheduledTask {
     $xml = $xml.Replace('{TASK_NAME}', $TaskName)
     $xml = $xml.Replace('{TRIGGERS}', $Triggers)
     $xml = $xml.Replace('{COMMAND}', $Command)
-    $xml = $xml.Replace('{ARGUMENTS}', $Arguments)
+    $xml = $xml.Replace('{ARGUMENTS}', $myArgs)
     $xml = $xml.Replace('{EXPIRY_DAYS}', $expiryDays)
     return $xml
 }
