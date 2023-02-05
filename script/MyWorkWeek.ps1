@@ -5,6 +5,7 @@
     @task @scheduler @workweek
 #>
 function Register-MyWorkWeek {
+    [Alias('WorkWeek')]
     [CmdletBinding(DefaultParameterSetName = 'Register')]
     Param(
         [ArgumentCompleter({
@@ -30,7 +31,7 @@ function Register-MyWorkWeek {
         cat "$PsScriptRoot\..\res\myworkweek.json" `
             | ConvertFrom-Json
 
-    $params = [PsCustomObject]@{
+    $params = @{
         StartDate = $StartDate
         SaveToFile = $SaveToFile
         TimerMinutes = $myWorkWeek.TimerMinutes

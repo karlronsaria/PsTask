@@ -137,6 +137,8 @@ function Get-WeekDayScheduledTask {
     $author = "$($env:UserDomain)\$($env:UserName)"
     $myArgs = "`"$($Arguments -Join ' ')`""
     $expiryDays = 14
+    $userId =
+        [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
 
     # TODO: remove
     $calendarTrigger =
@@ -203,6 +205,7 @@ function Get-WeekDayScheduledTask {
     $xml = $xml.Replace('{AUTHOR}', $author)
     $xml = $xml.Replace('{DESCRIPTION}', $Description)
     $xml = $xml.Replace('{DIRECTORY}', $directory)
+    $xml = $xml.Replace('{USERID}', $userId)
     $xml = $xml.Replace('{TASK_NAME}', $TaskName)
     $xml = $xml.Replace('{TRIGGERS}', $Triggers)
     $xml = $xml.Replace('{COMMAND}', $Command)
