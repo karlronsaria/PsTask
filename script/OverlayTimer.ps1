@@ -20,6 +20,18 @@ function Start-OverlayTimer {
     Add-Type -AssemblyName System.Windows.Forms
     $size = [System.Windows.Forms.SystemInformation]::PrimaryMonitorSize
 
+    # remove possible object collision
+    Stop-PsCountdownTimer *> $null
+
+    $psClockInfo = cat "$PsScriptRoot\..\res\PsClock_info.json" `
+        | ConvertFrom-Json
+
+    $psClockInfoPath = iex "& $($PsClockInfo.CachePath)"
+
+    if ((Test-Path $psClockInfoPath)) {
+        Remove-Item $psClockInfoPath -Force | Out-Null
+    }
+
     Start-PsCountdownTimer `
         -Seconds $Seconds `
         -OnTop `
@@ -28,8 +40,10 @@ function Start-OverlayTimer {
     do {
         Start-Sleep -Seconds 1
     }
-    while ($PsCountdownClock.Running)
+    while ($null -ne $PsCountdownClock -and $PsCountdownClock.Running)
 
-    Invoke-Expression $Command
+    if ($Command) {
+        Invoke-Expression $Command
+    }
 }
 

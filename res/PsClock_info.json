@@ -1,0 +1,3 @@
+{
+    "CachePath": "{ \"$($env:TEMP)/pscountdown-flag.txt\" }"
+}
