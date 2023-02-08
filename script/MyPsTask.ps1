@@ -43,7 +43,7 @@ function Register-WorkWeekShutdownScheduledTask {
         TaskName = 'TimedShutdown_WorkWeek'
         Description = 'Displays an overlay timer and shuts down the computer at a certain time.'
         Command = $defaults.Module.Command
-        Arguments = ($TimerMinutes * 60), 'shutdown', '"-f -s -t 0"'
+        Arguments = ($TimerMinutes * 60), '"shutdown -f -s -t 0"'
         MinuteHeadStart = $TimerMinutes + $DriveTimeMinutes
     }
 
@@ -84,7 +84,8 @@ function Register-WorkWeekShutdownScheduledTask {
         $register = Register-ScheduledTask `
             -TaskName $params.TaskName `
             -TaskPath $directory `
-            -Xml ($xml | Out-String)
+            -Xml ($xml | Out-String) `
+            -Force
     }
 
     $schedule = $params.StartBoundary `

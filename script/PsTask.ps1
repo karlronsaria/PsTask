@@ -135,7 +135,7 @@ function Get-WeekDayScheduledTask {
     $defaults = cat "$PsScriptRoot\..\res\default.json" | ConvertFrom-Json
     $directory = $defaults.RegistrationInfo.Directory
     $author = "$($env:UserDomain)\$($env:UserName)"
-    $myArgs = "`"$($Arguments -Join ' ')`""
+    $myArgs = "$($Arguments -Join ' ')"
     $expiryDays = 14
     $userId =
         [System.Security.Principal.WindowsIdentity]::GetCurrent().User.Value
