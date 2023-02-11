@@ -25,9 +25,11 @@
       - parse record file, change ``To`` or ``EndTime`` property on request
 
 # issue
-- [x]
-  - when: 2022_10_11_141916
-  - process: \shortcut\bin\workschedule.bat
+- [x] 2022_10_11_141916
+  - howto: \shortcut\bin\workschedule.bat
   - actual: registered task does not appear in Task Scheduler one day after registration
-  - howto: change "days to remove" to 14
+  - solution: change "days to remove" to 14
+- [ ] 2023_02_11_142119
+  - actual
+    ![2023_02_11_142140](./res/2023_02_11_142140.png)
 
