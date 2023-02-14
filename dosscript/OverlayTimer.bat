@@ -14,7 +14,7 @@ if "%~3" EQU "--whatif" goto whatif
 
 :run
 echo Executing
-powershell "%cmd%"
+cmd /c powershell "%cmd%"
 exit /b
 
 :whatif
