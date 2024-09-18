@@ -8,4 +8,7 @@ Url: <https://stackoverflow.com/questions/65462679/why-powershell-exe-there-is-n
 Retrieved: 2022_10_09
 #>
 
-return @(dir "$PsScriptRoot\script\*.ps1")
+return (
+    @(dir "$PsScriptRoot\Require.ps1") +
+    @(dir "$PsScriptRoot\script\*.ps1")
+)
