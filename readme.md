@@ -2,7 +2,7 @@
 - github.com/jdhitsolutionis for ``PSClock``
 - link
   - url: https://github.com/jdhitsolutionis/PSClock
-  - retrieved: 2023_02_03
+  - retrieved: 2023-02-03
 
 # todo
 - [ ] feat: Edit-WorkDay
@@ -25,11 +25,11 @@
       - parse record file, change ``To`` or ``EndTime`` property on request
 
 # issue
-- [x] 2022_10_11_141916
+- [x] 2022-10-11-141916
   - howto: \shortcut\bin\workschedule.bat
   - actual: registered task does not appear in Task Scheduler one day after registration
   - solution: change "days to remove" to 14
-- [ ] 2023_02_11_142119
+- [ ] 2023-02-11-142119
   - actual
-    ![2023_02_11_142140](./res/2023_02_11_142140.png)
+    ![2023-02-11-142140](./res/2023-02-11-142140.png)
 

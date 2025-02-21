@@ -14,7 +14,7 @@ function Register-WorkWeekShutdownScheduledTask {
                 foreach -Begin {
                     $date = Get-Date
                 } -Process {
-                    Get-Date ($date.AddDays($_)) -Format 'yyyy_MM_dd'
+                    Get-Date ($date.AddDays($_)) -Format 'yyyy-MM-dd' # Uses DateTimeFormat
                 } |
                 where {
                     $_ -like "$C*"
@@ -65,7 +65,7 @@ function Register-WorkWeekShutdownScheduledTask {
     $filePath = ''
 
     if ($SaveToFile) {
-        $filePath = "$($params.TaskName)_$(Get-Date -f yyyy_MM_dd_HHmmss).xml"
+        $filePath = "$($params.TaskName)_$(Get-Date -f yyyy-MM-dd-HHmmss).xml" # Uses DateTimeFormat
         $xml | Out-File $filePath
     }
 

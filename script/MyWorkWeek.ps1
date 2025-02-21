@@ -15,7 +15,7 @@ function Register-MyWorkWeek {
                 foreach -Begin {
                     $date = Get-Date
                 } -Process {
-                    Get-Date ($date.AddDays($_)) -Format 'yyyy_MM_dd'
+                    Get-Date ($date.AddDays($_)) -Format 'yyyy-MM-dd' # Uses DateTimeFormat
                 } |
                 where {
                     $_ -like "$C*"

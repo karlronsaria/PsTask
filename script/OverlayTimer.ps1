@@ -16,7 +16,7 @@ function Start-OverlayTimer {
 
     # link
     # - url: https://stackoverflow.com/questions/7967699/get-screen-resolution-using-wmi-powershell-in-windows-7
-    # - retrieved: 2023_02_03
+    # - retrieved: 2023-02-03
     Add-Type -AssemblyName System.Windows.Forms
     $size = [System.Windows.Forms.SystemInformation]::PrimaryMonitorSize
 

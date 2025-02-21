@@ -59,7 +59,7 @@ function Read-WeekSchedule {
                 break
             }
 
-            $capture = [Regex]::Match($StartDate, "\d{4}(_\d{2}){2}")
+            $capture = [Regex]::Match($StartDate, "\d{4}(-\d{2}){2}") # Uses DateTimeFormat
 
             if (-not $capture.Success) {
                 Read-WeekSchedule
@@ -71,7 +71,7 @@ function Read-WeekSchedule {
             Read-WeekSchedule `
                 -Date ([DateTime]::ParseExact( `
                     $capture.Value, `
-                    'yyyy_MM_dd', `
+                    'yyyy-MM-dd', ` # Uses DateTimeFormat
                     $null `
                 ))
         }
@@ -90,7 +90,7 @@ function Read-WeekSchedule {
                     -Prompt "$($Date.DayOfWeek) (Enter to skip)"
 
                 if ($result.Success) {
-                    $time = "$($Date.ToString('yyyy_MM_dd'))_$($result.Time)"
+                    $time = "$($Date.ToString('yyyy-MM-dd'))-$($result.Time)" # Uses DateTimeFormat
                     $times = $times + @($time)
                 }
 
@@ -180,7 +180,7 @@ function Get-WeekDayScheduledTask {
         | where { -not [String]::IsNullOrWhiteSpace($_) } `
         | foreach {
             $start =
-                [DateTime]::ParseExact($_, 'yyyy_MM_dd_HHmmss', $null) `
+                [DateTime]::ParseExact($_, 'yyyy-MM-dd-HHmmss', $null) ` # Uses DateTimeFormat
                     - (New-TimeSpan -Minutes $MinuteHeadStart)
 
             $end = $start.AddDays(1)
